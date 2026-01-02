@@ -14,7 +14,7 @@ public class PlayerHealth : Health
 
     public void Heal(int amount)
     {
-        ChangeHealth(+1);
+        ChangeHealth(amount);
         
         StopAllCoroutines();
         AnimateColor(healEffectColor);

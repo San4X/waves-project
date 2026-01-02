@@ -38,7 +38,7 @@ public class Bubble : Health
         var randZ = Random.Range(-1f, 1f);
         Vector3 newPosition = transform.position + new Vector3(randX, 0f ,randZ) * 1.5f;
         
-        Tween.LocalPosition(transform, newPosition, 0.6f, Ease.OutExpo);
+        Tween.LocalPosition(transform, newPosition, 0.7f, Ease.OutExpo);
         Tween.Scale(transform, 1f, 0.7f, Ease.OutBack);
     }
 }
