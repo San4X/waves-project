@@ -1,5 +1,6 @@
 using System;
 using PrimeTween;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -8,15 +9,20 @@ public class PlayerHealth : Health
 {
     [SerializeField] private RectTransform healthImg;
     [SerializeField] private RectTransform dumpedHealthImg;
+    [SerializeField] private TextMeshProUGUI healthText;
     [SerializeField] private Color healEffectColor;
     private GameObject _lastHealObject;
-    
+
+
+    private void Start()
+    {
+        UpdateUI();
+    }
 
     public void Heal(int amount)
     {
         ChangeHealth(amount);
         
-        StopAllCoroutines();
         AnimateColor(healEffectColor);
         
         UpdateUI();
@@ -25,11 +31,9 @@ public class PlayerHealth : Health
     protected override void TakeDamage()
     {
         ChangeHealth(-3);
-        
-        StopAllCoroutines();
-        AnimateColor(damageEffectColor);
-        
         UpdateUI();
+        
+        AnimateColor(damageEffectColor);
     }
 
     protected override void Death()
@@ -42,6 +46,8 @@ public class PlayerHealth : Health
 
     private void UpdateUI()
     {
+        healthText.text = CurrentHealth + "/" + maxHealth;
+        
         float newHealthPercent = Mathf.InverseLerp(0f, maxHealth, CurrentHealth);
         Vector3 newHealthImgScale = new Vector3(newHealthPercent, 1f, 1f);
         

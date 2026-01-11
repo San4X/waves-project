@@ -100,4 +100,11 @@ public class PlayerMovement : MonoBehaviour
         Gizmos.DrawRay(transform.position, _rb.linearVelocity);
         Gizmos.color = Color.white;
     }
+
+    public float GetDamageValue()
+    {
+        float velocityCoef = VelocityCoef(5f, 15f);
+        float damage = Mathf.Lerp(1f, 3f, velocityCoef);
+        return Mathf.Floor(damage);
+    }
 }

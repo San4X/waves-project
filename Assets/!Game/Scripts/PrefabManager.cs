@@ -5,6 +5,7 @@ public class PrefabManager : MonoBehaviour
 {
     public Transform fishBullet;
     public Transform bubble;
+    public Transform worldTextPopupFade;
     
     public static PrefabManager Instance { get; private set; }
 

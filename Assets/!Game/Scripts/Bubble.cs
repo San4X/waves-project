@@ -6,6 +6,7 @@ using Random = UnityEngine.Random;
 public class Bubble : Health
 {
     private PlayerHealth _playerHealth;
+    private PlayerMovement _playerMovement;
 
 
     protected override void Awake()
@@ -19,12 +20,23 @@ public class Bubble : Health
     private void Start()
     {
         _playerHealth = FindAnyObjectByType<PlayerHealth>();
+        _playerMovement = _playerHealth.GetComponent<PlayerMovement>();
     }
 
     protected override void TakeDamage()
     {
         HealPlayer();
-        base.TakeDamage();
+        
+        int damageAmount = (int)_playerMovement.GetDamageValue();
+        ChangeHealth(-damageAmount);
+        
+        Vector3 popupPos = transform.position;
+        popupPos.y += 1;
+        WorldTextPopupFade.Create(popupPos, damageAmount.ToString());
+        
+        // same
+        AnimateShake();
+        AnimateColor(damageEffectColor);
     }
 
     private void HealPlayer()

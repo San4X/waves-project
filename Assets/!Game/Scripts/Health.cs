@@ -54,8 +54,6 @@ public class Health : MonoBehaviour
         
         AnimateShake();
         
-        StopAllCoroutines();
-        //StartCoroutine(AnimateColor(damageEffectColor));
         AnimateColor(damageEffectColor);
     }
 
