@@ -6,8 +6,9 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     public float forwardForce = 1f;
-    public float turnForce = 0.5f;
-    public AnimationCurve turnDumpCurve;
+    public float sideForce = 1f;
+    public AnimationCurve sideForceDumpCurve;
+    public float rotationSpeed = 1f;
     
     private InputAction _moveAction;
     private Rigidbody _rb;
@@ -26,12 +27,13 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         Accelerate();
-        RotateModel();
+        // AdditiveRotation();
     }
 
     void FixedUpdate()
     {
-        Turn();
+        SideForce();
+        Rotate();
     }
 
     private void Accelerate()
@@ -41,10 +43,8 @@ public class PlayerMovement : MonoBehaviour
         _rb.AddRelativeForce(Vector3.forward * forwardForce, ForceMode.Impulse);
     }
 
-    private void Turn()
+    private void SideForce()
     {
-        if (!_moveAction.IsPressed()) return;
-        
         Vector3 sideVel = new Vector3();
         float side = _moveAction.ReadValue<float>();
         
@@ -55,25 +55,33 @@ public class PlayerMovement : MonoBehaviour
             sideVel = Vector3.right;
         
         // Calculate side velocity
-        float forwardVel = transform.InverseTransformDirection(_rb.linearVelocity).z;// швидкість вперед по локальній сітці
-
-        float forwardVelCoef = Mathf.InverseLerp(0f, forwardForce*2, forwardVel);
-        float dump = turnDumpCurve.Evaluate(forwardVelCoef);
+        float dump = sideForceDumpCurve.Evaluate(VelocityCoef(0f, forwardForce*2));
         
-        sideVel *= turnForce * dump * Time.fixedDeltaTime; // side velocity based on: local forward, const, dump coef (if forward vel > forward impulse value, coef = 1)
+        sideVel *= sideForce * dump; // side velocity based on: local forward, const, dump coef (if forward vel > forward impulse value, coef = 1)
         
-        _rb.AddRelativeForce(sideVel, ForceMode.VelocityChange);
-        // Rotate body
-        if(forwardVelCoef <= 0.1f) return; // bc of warning: look rotation vector is zero
-        Quaternion targetRot = Quaternion.LookRotation(_rb.linearVelocity.normalized, Vector3.up); // look at global velocity vector (move left -> -x -> look left)
-        transform.rotation = targetRot;
+        _rb.AddRelativeForce(sideVel);
     }
 
-    private void RotateModel()
+    private void Rotate()
     {
-        // more velocity - more rotation angle
-        // speed of rotation покішо const
-        //if (!_moveAction.IsPressed()) return;
+        Vector3 vel = _rb.linearVelocity;
+        
+        if(vel.sqrMagnitude <= 0.01f) return; // bc of warning: look rotation vector is zero
+        
+        Quaternion targetRot = Quaternion.LookRotation(vel.normalized, Vector3.up);
+        
+        _rb.MoveRotation(
+            Quaternion.Slerp(
+                _rb.rotation,
+                targetRot,
+                rotationSpeed * Time.fixedDeltaTime
+                )
+            );
+    }
+
+    private void AdditiveRotation()
+    {
+        // animate model when fast
         float inputSide = _moveAction.ReadValue<float>();
         float angle = Mathf.Lerp(0f, 30f, VelocityCoef(12f, 18f));
         angle *= inputSide;
