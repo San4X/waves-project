@@ -18,13 +18,13 @@ public class PerformanceCounter : MonoBehaviour
 
     private void Update()
     {
-        float fps = 1.0f / Time.deltaTime;
+        float fps = 1.0f / Time.unscaledDeltaTime;
         _fpsAvg += fps;
         _frameCounter++;
         
         if (_updateTimer < updateCd)
         {
-            _updateTimer += Time.deltaTime;
+            _updateTimer += Time.unscaledDeltaTime;
             return;
         }
         _updateTimer = 0;

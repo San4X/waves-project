@@ -27,20 +27,20 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         Accelerate();
+        Rotate();
         // AdditiveRotation();
     }
 
     void FixedUpdate()
     {
         SideForce();
-        Rotate();
     }
 
     private void Accelerate()
     {
         if(!_moveAction.WasPerformedThisFrame()) return;
         
-        _rb.AddRelativeForce(Vector3.forward * forwardForce, ForceMode.Impulse);
+        ForwardImpulse(forwardForce);
     }
 
     private void SideForce()
@@ -65,18 +65,14 @@ public class PlayerMovement : MonoBehaviour
     private void Rotate()
     {
         Vector3 vel = _rb.linearVelocity;
+        vel.y = 0;
         
         if(vel.sqrMagnitude <= 0.01f) return; // bc of warning: look rotation vector is zero
         
         Quaternion targetRot = Quaternion.LookRotation(vel.normalized, Vector3.up);
-        
-        _rb.MoveRotation(
-            Quaternion.Slerp(
-                _rb.rotation,
-                targetRot,
-                rotationSpeed * Time.fixedDeltaTime
-                )
-            );
+
+        _rb.MoveRotation(targetRot);
+        // this method in Update cuz .MoveRotation happens instantly and FixedUpdate frame rate affected by timeScale
     }
 
     private void AdditiveRotation()
@@ -109,10 +105,8 @@ public class PlayerMovement : MonoBehaviour
         Gizmos.color = Color.white;
     }
 
-    public float GetDamageValue()
+    public void ForwardImpulse(float force)
     {
-        float velocityCoef = VelocityCoef(5f, 15f);
-        float damage = Mathf.Lerp(1f, 3f, velocityCoef);
-        return Mathf.Floor(damage);
+        _rb.AddRelativeForce(Vector3.forward * force, ForceMode.Impulse);
     }
 }

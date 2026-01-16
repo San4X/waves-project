@@ -941,6 +941,7 @@ GameObject:
   - component: {fileID: 4630159431808067993}
   - component: {fileID: 843452015413306613}
   - component: {fileID: 6917911630520496108}
+  - component: {fileID: 2961495381477832043}
   m_Layer: 0
   m_Name: PLAYER
   m_TagString: Player
@@ -1084,7 +1085,7 @@ MonoBehaviour:
   renderer: {fileID: 4034774240781267838}
   effectMaterial: {fileID: 2100000, guid: 88c12bd2932d6e94aa1afcc08703641c, type: 2}
   damageEffectColor: {r: 0.7509433, g: 0, b: 0, a: 0}
-  flashDuration: 0.15
+  fadeDuration: 0.8
   shakeDuration: 0
   invincibleCd: 1
   maxHealth: 3
@@ -1093,6 +1094,19 @@ MonoBehaviour:
   dumpedHealthImg: {fileID: 0}
   healthText: {fileID: 0}
   healEffectColor: {r: 0.058079265, g: 0.6075471, b: 0, a: 0}
+--- !u!114 &2961495381477832043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4525539037742272812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 081a5266d33081f46b527184cb1d3c63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerDamageSource
+  damageValue: 0
 --- !u!1 &4690357523405607757
 GameObject:
   m_ObjectHideFlags: 0

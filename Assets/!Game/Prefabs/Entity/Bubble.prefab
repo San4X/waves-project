@@ -128,11 +128,12 @@ MonoBehaviour:
   renderer: {fileID: 3047533655906330177}
   effectMaterial: {fileID: 2100000, guid: 88c12bd2932d6e94aa1afcc08703641c, type: 2}
   damageEffectColor: {r: 1, g: 1, b: 1, a: 1}
-  flashDuration: 0.15
+  fadeDuration: 0.8
   shakeDuration: 0.15
-  invincibleCd: 1
+  invincibleCd: 0.2
   maxHealth: 0
   damagingObjectTag: Player
+  lootAmount: 0
 --- !u!54 &3934422235046422328
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -159,4 +160,4 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1

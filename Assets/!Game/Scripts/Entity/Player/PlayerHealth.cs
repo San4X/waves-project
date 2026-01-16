@@ -19,25 +19,24 @@ public class PlayerHealth : Health
         UpdateUI();
     }
 
-    public void Heal(int amount)
+    public void Heal(int value)
     {
-        ChangeHealth(amount);
+        ChangeHealth(value);
         
         AnimateColor(healEffectColor);
         
         UpdateUI();
     }
-    
-    protected override void TakeDamage()
+
+    protected override void TakeDamage(int damageAmount)
     {
-        ChangeHealth(-3);
+        base.TakeDamage(damageAmount);
         UpdateUI();
-        
-        AnimateColor(damageEffectColor);
     }
 
     protected override void Death()
     {
+        base.Death();
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #endif

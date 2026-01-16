@@ -10,7 +10,7 @@ public class Health : MonoBehaviour
     [SerializeField] private new Renderer renderer;
     [SerializeField] private Material effectMaterial;
     [SerializeField] protected Color damageEffectColor;
-    [SerializeField] private float flashDuration;
+    [SerializeField] private float fadeDuration;
     [SerializeField] protected float shakeDuration;
     [SerializeField] private float invincibleCd = 1f;
     [SerializeField] protected int maxHealth;
@@ -44,16 +44,16 @@ public class Health : MonoBehaviour
         if (!other.transform.CompareTag(damagingObjectTag)) return;
         if (_timer < invincibleCd) return;
         _timer = 0f;
-        
-        TakeDamage();
+
+        var dmgSource = other.GetComponent<DamageSource>();
+        TakeDamage(dmgSource? dmgSource.GetDemageValue() : 1);
     }
 
-    protected virtual void TakeDamage()
+    protected virtual void TakeDamage(int damageAmount)
     {
-        ChangeHealth(-1);
+        ChangeHealth(-damageAmount);
         
         AnimateShake();
-        
         AnimateColor(damageEffectColor);
     }
 
@@ -76,12 +76,14 @@ public class Health : MonoBehaviour
 
     protected virtual void AnimateShake()
     {
+        if(shakeDuration <= 0) return;
         Tween.ShakeLocalPosition(transform, new Vector3(1f, 0f, 1f) * 0.7f, shakeDuration, 10f);
     }
     
     protected void AnimateColor(Color effectColor)
     {
-        Tween.Custom(1f, 0f, 0.8f, f => ChangeAlpha(_effectMat, effectColor, f));
+        if(fadeDuration <= 0) return;
+        Tween.Custom(1f, 0f, fadeDuration, f => ChangeAlpha(_effectMat, effectColor, f));
     }
 
     private void ChangeAlpha(Material materialToChange, Color newColor, float value)

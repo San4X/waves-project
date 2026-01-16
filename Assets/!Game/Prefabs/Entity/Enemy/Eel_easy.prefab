@@ -1804,8 +1804,9 @@ GameObject:
   - component: {fileID: 248400873185054018}
   - component: {fileID: 763835373139462623}
   - component: {fileID: 9061945164465663726}
+  - component: {fileID: 2979763005636790554}
   m_Layer: 0
-  m_Name: Eel_standart
+  m_Name: Eel_easy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1840,8 +1841,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EelBehaviour
   headBone: {fileID: 4468300138128040018}
-  maxSpeed: 9
-  stopDistance: 5
+  maxSpeed: 8
+  stopDistance: 6
   stalkSpeed: 3
   maxSpeedDistance: 10
   stalkSpeedDistance: 7
@@ -1870,7 +1871,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  dashDuration: 1.2
+  dashDuration: 0.8
   drawPoint: {x: 0, y: 0, z: 0}
 --- !u!195 &248400873185054018
 NavMeshAgent:
@@ -1918,7 +1919,7 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 84
   m_CollisionDetection: 0
 --- !u!114 &9061945164465663726
@@ -1936,12 +1937,25 @@ MonoBehaviour:
   renderer: {fileID: 5291667386188063152}
   effectMaterial: {fileID: 2100000, guid: 88c12bd2932d6e94aa1afcc08703641c, type: 2}
   damageEffectColor: {r: 0.7490196, g: 0, b: 0, a: 0}
-  flashDuration: 0.15
+  fadeDuration: 0.8
   shakeDuration: 0.15
-  invincibleCd: 0.8
+  invincibleCd: 1
   maxHealth: 5
   damagingObjectTag: Player
-  lootAmount: 7
+  lootAmount: 2
+--- !u!114 &2979763005636790554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6918356416795685740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96a95d471bc063f4daf4285d8d0d0985, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DamageSource
+  damageValue: 1
 --- !u!1 &7001579000183266072
 GameObject:
   m_ObjectHideFlags: 0
@@ -2698,6 +2712,7 @@ SkinnedMeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: f1284a6b23fbe6b429399a50f5b2311f, type: 2}
+  - {fileID: 2100000, guid: 6a0a950e77382f9409c71e45ada810f2, type: 2}
   - {fileID: 2100000, guid: 88c12bd2932d6e94aa1afcc08703641c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -2943,7 +2958,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
+  m_LocalScale: {x: 0.15, y: 0.15, z: 0.15}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5640008889880203432}
