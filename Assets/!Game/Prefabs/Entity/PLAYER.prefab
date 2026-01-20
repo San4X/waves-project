@@ -937,7 +937,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3304608796071900042}
-  - component: {fileID: 5975636701974040939}
+  - component: {fileID: 2696588193593470309}
   - component: {fileID: 4630159431808067993}
   - component: {fileID: 843452015413306613}
   - component: {fileID: 6917911630520496108}
@@ -965,7 +965,7 @@ Transform:
   - {fileID: 2599623811946290106}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5975636701974040939
+--- !u!114 &2696588193593470309
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -974,25 +974,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 4525539037742272812}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11b3dd85f02473a48a651aa0b9446ffb, type: 3}
+  m_Script: {fileID: 11500000, guid: e8c8c8eaa189ece4f9b81a5aed509cca, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
-  forwardForce: 6
-  sideForce: 55
-  sideForceDumpCurve:
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerMovementController
+  velocityStep: 4
+  maxForwardVelocity: 20
+  stopTime: 1
+  velocityDecreaseCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0.08
-      value: 0
-      inSlope: 0.15070346
-      outSlope: 0.15070346
-      tangentMode: 0
-      weightedMode: 2
-      inWeight: 0
-      outWeight: 0.61923087
-    - serializedVersion: 3
-      time: 0.6
+      time: 0
       value: 1
       inSlope: 0
       outSlope: 0
@@ -1001,27 +993,34 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.95
+      time: 0.15
       value: 1
-      inSlope: -0
-      outSlope: 0.04666356
-      tangentMode: 1
-      weightedMode: 3
-      inWeight: 0.33333334
-      outWeight: 0.8160077
-    - serializedVersion: 3
-      time: 1
-      value: 0.9
       inSlope: 0
       outSlope: 0
-      tangentMode: 0
+      tangentMode: 136
       weightedMode: 0
-      inWeight: 0
-      outWeight: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  rotationSpeed: 100
+  velocityResponsivness: 100
+  sideForce: 1
+  sideForceDumpCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!54 &4630159431808067993
 Rigidbody:
   m_ObjectHideFlags: 0

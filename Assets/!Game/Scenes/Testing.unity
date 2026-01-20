@@ -2526,7 +2526,7 @@ MonoBehaviour:
   chargeAmountText: {fileID: 1536719435}
   countdownTime: 2
   timerImage: {fileID: 2050865958}
-  amountToUnlock: 5
+  amountToUnlock: 1
   iconFillImage: {fileID: 1068241520}
 --- !u!1 &2069924391
 GameObject:
@@ -2670,6 +2670,122 @@ PrefabInstance:
       propertyPath: m_Data.m_DampRotation
       value: 0.1
       objectReference: {fileID: 0}
+    - target: {fileID: 2696588193593470309, guid: c229b5fac418f3042bdef059c9e9297b, type: 3}
+      propertyPath: sideForce
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 2696588193593470309, guid: c229b5fac418f3042bdef059c9e9297b, type: 3}
+      propertyPath: sideForceDumpCurve.m_Curve.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2696588193593470309, guid: c229b5fac418f3042bdef059c9e9297b, type: 3}
+      propertyPath: sideForceDumpCurve.m_Curve.Array.data[0].time
+      value: 0.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 2696588193593470309, guid: c229b5fac418f3042bdef059c9e9297b, type: 3}
+      propertyPath: sideForceDumpCurve.m_Curve.Array.data[1].time
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2696588193593470309, guid: c229b5fac418f3042bdef059c9e9297b, type: 3}
+      propertyPath: sideForceDumpCurve.m_Curve.Array.data[2].time
+      value: 0.95
+      objectReference: {fileID: 0}
+    - target: {fileID: 2696588193593470309, guid: c229b5fac418f3042bdef059c9e9297b, type: 3}
+      propertyPath: sideForceDumpCurve.m_Curve.Array.data[3].time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2696588193593470309, guid: c229b5fac418f3042bdef059c9e9297b, type: 3}
+      propertyPath: sideForceDumpCurve.m_Curve.Array.data[1].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2696588193593470309, guid: c229b5fac418f3042bdef059c9e9297b, type: 3}
+      propertyPath: sideForceDumpCurve.m_Curve.Array.data[2].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2696588193593470309, guid: c229b5fac418f3042bdef059c9e9297b, type: 3}
+      propertyPath: sideForceDumpCurve.m_Curve.Array.data[3].value
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2696588193593470309, guid: c229b5fac418f3042bdef059c9e9297b, type: 3}
+      propertyPath: sideForceDumpCurve.m_Curve.Array.data[0].inSlope
+      value: 0.15070346
+      objectReference: {fileID: 0}
+    - target: {fileID: 2696588193593470309, guid: c229b5fac418f3042bdef059c9e9297b, type: 3}
+      propertyPath: sideForceDumpCurve.m_Curve.Array.data[1].inSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2696588193593470309, guid: c229b5fac418f3042bdef059c9e9297b, type: 3}
+      propertyPath: sideForceDumpCurve.m_Curve.Array.data[2].inSlope
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2696588193593470309, guid: c229b5fac418f3042bdef059c9e9297b, type: 3}
+      propertyPath: sideForceDumpCurve.m_Curve.Array.data[3].inSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2696588193593470309, guid: c229b5fac418f3042bdef059c9e9297b, type: 3}
+      propertyPath: sideForceDumpCurve.m_Curve.Array.data[0].outSlope
+      value: 0.15070346
+      objectReference: {fileID: 0}
+    - target: {fileID: 2696588193593470309, guid: c229b5fac418f3042bdef059c9e9297b, type: 3}
+      propertyPath: sideForceDumpCurve.m_Curve.Array.data[1].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 2696588193593470309, guid: c229b5fac418f3042bdef059c9e9297b, type: 3}
+      propertyPath: sideForceDumpCurve.m_Curve.Array.data[1].outSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2696588193593470309, guid: c229b5fac418f3042bdef059c9e9297b, type: 3}
+      propertyPath: sideForceDumpCurve.m_Curve.Array.data[2].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 2696588193593470309, guid: c229b5fac418f3042bdef059c9e9297b, type: 3}
+      propertyPath: sideForceDumpCurve.m_Curve.Array.data[2].outSlope
+      value: 0.04666356
+      objectReference: {fileID: 0}
+    - target: {fileID: 2696588193593470309, guid: c229b5fac418f3042bdef059c9e9297b, type: 3}
+      propertyPath: sideForceDumpCurve.m_Curve.Array.data[3].inWeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2696588193593470309, guid: c229b5fac418f3042bdef059c9e9297b, type: 3}
+      propertyPath: sideForceDumpCurve.m_Curve.Array.data[3].outSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2696588193593470309, guid: c229b5fac418f3042bdef059c9e9297b, type: 3}
+      propertyPath: sideForceDumpCurve.m_Curve.Array.data[0].outWeight
+      value: 0.61923087
+      objectReference: {fileID: 0}
+    - target: {fileID: 2696588193593470309, guid: c229b5fac418f3042bdef059c9e9297b, type: 3}
+      propertyPath: sideForceDumpCurve.m_Curve.Array.data[1].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 2696588193593470309, guid: c229b5fac418f3042bdef059c9e9297b, type: 3}
+      propertyPath: sideForceDumpCurve.m_Curve.Array.data[2].outWeight
+      value: 0.8160077
+      objectReference: {fileID: 0}
+    - target: {fileID: 2696588193593470309, guid: c229b5fac418f3042bdef059c9e9297b, type: 3}
+      propertyPath: sideForceDumpCurve.m_Curve.Array.data[0].tangentMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2696588193593470309, guid: c229b5fac418f3042bdef059c9e9297b, type: 3}
+      propertyPath: sideForceDumpCurve.m_Curve.Array.data[1].tangentMode
+      value: 136
+      objectReference: {fileID: 0}
+    - target: {fileID: 2696588193593470309, guid: c229b5fac418f3042bdef059c9e9297b, type: 3}
+      propertyPath: sideForceDumpCurve.m_Curve.Array.data[2].tangentMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2696588193593470309, guid: c229b5fac418f3042bdef059c9e9297b, type: 3}
+      propertyPath: sideForceDumpCurve.m_Curve.Array.data[3].tangentMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2696588193593470309, guid: c229b5fac418f3042bdef059c9e9297b, type: 3}
+      propertyPath: sideForceDumpCurve.m_Curve.Array.data[0].weightedMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2696588193593470309, guid: c229b5fac418f3042bdef059c9e9297b, type: 3}
+      propertyPath: sideForceDumpCurve.m_Curve.Array.data[2].weightedMode
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 3072578492028804445, guid: c229b5fac418f3042bdef059c9e9297b, type: 3}
       propertyPath: m_Weight
       value: 0
@@ -2731,6 +2847,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4630159431808067993, guid: c229b5fac418f3042bdef059c9e9297b, type: 3}
+      propertyPath: m_LinearDamping
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4630159431808067993, guid: c229b5fac418f3042bdef059c9e9297b, type: 3}
       propertyPath: m_AngularDamping
       value: 1
       objectReference: {fileID: 0}
@@ -2763,12 +2883,24 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5975636701974040939, guid: c229b5fac418f3042bdef059c9e9297b, type: 3}
+      propertyPath: maxSpeed
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 5975636701974040939, guid: c229b5fac418f3042bdef059c9e9297b, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5975636701974040939, guid: c229b5fac418f3042bdef059c9e9297b, type: 3}
+      propertyPath: sideForce
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 5975636701974040939, guid: c229b5fac418f3042bdef059c9e9297b, type: 3}
       propertyPath: turnForce
       value: 55
       objectReference: {fileID: 0}
     - target: {fileID: 5975636701974040939, guid: c229b5fac418f3042bdef059c9e9297b, type: 3}
       propertyPath: rotationSpeed
-      value: 30
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5975636701974040939, guid: c229b5fac418f3042bdef059c9e9297b, type: 3}
       propertyPath: _childTranform

@@ -8,7 +8,6 @@ public class PlayerMovement : MonoBehaviour
     public float forwardForce = 1f;
     public float sideForce = 1f;
     public AnimationCurve sideForceDumpCurve;
-    public float rotationSpeed = 1f;
     
     private InputAction _moveAction;
     private Rigidbody _rb;
@@ -28,7 +27,6 @@ public class PlayerMovement : MonoBehaviour
     {
         Accelerate();
         Rotate();
-        // AdditiveRotation();
     }
 
     void FixedUpdate()

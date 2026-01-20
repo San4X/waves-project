@@ -15,7 +15,7 @@ public class DashAbility : MonoBehaviour
     private InputAction _abilityTriggerAction;
     private InputAction _chargeAction;
     private InputAction _moveAction;
-    private PlayerMovement _playerMovement;
+    private PlayerMovementController _playerMovement;
 
     private int _chargeCount;
     private bool _abilityActivated;
@@ -29,7 +29,7 @@ public class DashAbility : MonoBehaviour
         _abilityTriggerAction = InputSystem.actions.FindAction("Ability");
         _chargeAction = InputSystem.actions.FindAction("Charge");
         _moveAction = InputSystem.actions.FindAction("Move");
-        _playerMovement = FindAnyObjectByType<PlayerMovement>();
+        _playerMovement = FindAnyObjectByType<PlayerMovementController>();
         
         AbilityDisable();
         
@@ -74,7 +74,7 @@ public class DashAbility : MonoBehaviour
 
     private void Dash()
     {
-        _playerMovement.ForwardImpulse(_chargeCount*2);
+        _playerMovement.Dash(_chargeCount*2);
 
         _unlockPointsCount = 0;
         AbilityDisable();
@@ -89,8 +89,6 @@ public class DashAbility : MonoBehaviour
         _lastChargeButton = chargeButton;
 
         _chargeCount++;
-        
-        // UI update
     }
 
     private void AbilityDisable()
