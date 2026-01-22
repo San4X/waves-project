@@ -1,24 +1,30 @@
 using System;
+using PrimeTween;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerMovementController : MonoBehaviour
 {
+    [Header("Forward")]
     public float velocityStep; // by what value increase velocity when move action triggered
     public float maxForwardVelocity; // player cant accelerate more that that by move action (but can with ability)
     public float stopTime; // time need to pass to full stop
     public AnimationCurve velocityDamp; // how should velocity decrease from start to stopTime
-    public float forwardSmooth; // if movement more responsive or more smooth
+    public float forwardSmooth; // how smooth it accelerates
     
+    [Header("Side")]
     public float sideForce = 1f;
-    public AnimationCurve sideForceDumpCurve;
+    public AnimationCurve sideVelMult_ForwardVel;
+    public AnimationCurve sideVelMult_Time;
+    public float rotationSpeed;
 
     private InputAction _moveAction;
     private Rigidbody _rb;
     private float _targetForwardVelocity;
     private float _calcForwardVelocity;
     private float _calcSideVelocity;
-    private float _finalForwardVelocity;
+    private Tween _sideVelocityDampTween;
+    private Tween _rotationTween;
     private float _velocityDampTimer; // from 0 to stopTime, 0 when move action triggered. Used in velocityDecreaseCurve
     private bool _dashing;
 
@@ -81,23 +87,25 @@ public class PlayerMovementController : MonoBehaviour
         _targetForwardVelocity = newForwardVelocity;
     }
     
+    private float _sideVelToForwardDamp = 0;
+    private float _sideVelToTimeDamp = 0;
     private void SideVelocity()
     {
-        Vector3 sideVel = new Vector3();
-        float side = _moveAction.ReadValue<float>();
+        float sideVel = _moveAction.ReadValue<float>(); // -1 / 0 / 1
         
-        // Evaluate turn side
-        if(side < 0)
-            sideVel = Vector3.left;
-        else if(side > 0) 
-            sideVel = Vector3.right;
+        // Time based damp
+        if (_moveAction.WasPerformedThisFrame())
+        {
+            _sideVelocityDampTween = Tween.Custom(0f, 1f, 1f, f =>
+            {
+                _sideVelToTimeDamp = sideVelMult_Time.Evaluate(f);
+            });
+        }
         
-        // Calculate velocity
-        float dump = sideForceDumpCurve.Evaluate(VelocityCoef(0f, maxForwardVelocity));
-        sideVel *= sideForce * dump; // side velocity based on: const, current velocity + curve
+        // Forward velocity based damp
+        _sideVelToForwardDamp = sideVelMult_ForwardVel.Evaluate(VelocityCoef(0f, maxForwardVelocity));
 
-        _calcSideVelocity = sideVel.x;
-        //_rb.AddRelativeForce(sideVel);
+        _calcSideVelocity = sideVel * sideForce * _sideVelToForwardDamp * _sideVelToTimeDamp;
     }
     
     private void Rotate()
@@ -108,8 +116,8 @@ public class PlayerMovementController : MonoBehaviour
         if(vel.sqrMagnitude <= 0.01f) return; // bc of warning: look rotation vector is zero
         
         Quaternion targetRot = Quaternion.LookRotation(vel.normalized, Vector3.up);
-
-        _rb.MoveRotation(targetRot);
+        
+        _rb.MoveRotation(Quaternion.Slerp(_rb.rotation, targetRot, Time.deltaTime * rotationSpeed));
         // this method in Update cuz .MoveRotation happens instantly and FixedUpdate frame rate affected by timeScale
     }
     
