@@ -2716,7 +2716,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2696588193593470309, guid: c229b5fac418f3042bdef059c9e9297b, type: 3}
       propertyPath: sideVelMult_ForwardVel.m_Curve.Array.size
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2696588193593470309, guid: c229b5fac418f3042bdef059c9e9297b, type: 3}
       propertyPath: sideVelocityToTimeCurve.m_Curve.Array.size
@@ -2896,15 +2896,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2696588193593470309, guid: c229b5fac418f3042bdef059c9e9297b, type: 3}
       propertyPath: sideVelMult_ForwardVel.m_Curve.Array.data[0].time
-      value: 0.08
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2696588193593470309, guid: c229b5fac418f3042bdef059c9e9297b, type: 3}
       propertyPath: sideVelMult_ForwardVel.m_Curve.Array.data[1].time
-      value: 0.5
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 2696588193593470309, guid: c229b5fac418f3042bdef059c9e9297b, type: 3}
       propertyPath: sideVelMult_ForwardVel.m_Curve.Array.data[2].time
-      value: 0.8
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2696588193593470309, guid: c229b5fac418f3042bdef059c9e9297b, type: 3}
       propertyPath: sideVelMult_ForwardVel.m_Curve.Array.data[3].time
@@ -2928,7 +2928,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2696588193593470309, guid: c229b5fac418f3042bdef059c9e9297b, type: 3}
       propertyPath: sideVelMult_ForwardVel.m_Curve.Array.data[2].value
-      value: 1
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 2696588193593470309, guid: c229b5fac418f3042bdef059c9e9297b, type: 3}
       propertyPath: sideVelMult_ForwardVel.m_Curve.Array.data[3].value
@@ -2980,15 +2980,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2696588193593470309, guid: c229b5fac418f3042bdef059c9e9297b, type: 3}
       propertyPath: sideVelMult_ForwardVel.m_Curve.Array.data[0].inSlope
-      value: 0.15070346
+      value: 0.20252691
       objectReference: {fileID: 0}
     - target: {fileID: 2696588193593470309, guid: c229b5fac418f3042bdef059c9e9297b, type: 3}
       propertyPath: sideVelMult_ForwardVel.m_Curve.Array.data[1].inSlope
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 2696588193593470309, guid: c229b5fac418f3042bdef059c9e9297b, type: 3}
       propertyPath: sideVelMult_ForwardVel.m_Curve.Array.data[2].inSlope
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2696588193593470309, guid: c229b5fac418f3042bdef059c9e9297b, type: 3}
       propertyPath: sideForceDumpCurve.m_Curve.Array.data[0].weightedMode
@@ -2999,8 +2999,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2696588193593470309, guid: c229b5fac418f3042bdef059c9e9297b, type: 3}
+      propertyPath: sideVelMult_ForwardVel.m_Curve.Array.data[0].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 2696588193593470309, guid: c229b5fac418f3042bdef059c9e9297b, type: 3}
       propertyPath: sideVelMult_ForwardVel.m_Curve.Array.data[0].outSlope
-      value: 0.15070346
+      value: 0.20252691
       objectReference: {fileID: 0}
     - target: {fileID: 2696588193593470309, guid: c229b5fac418f3042bdef059c9e9297b, type: 3}
       propertyPath: sideVelMult_ForwardVel.m_Curve.Array.data[1].inWeight
@@ -3008,15 +3012,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2696588193593470309, guid: c229b5fac418f3042bdef059c9e9297b, type: 3}
       propertyPath: sideVelMult_ForwardVel.m_Curve.Array.data[1].outSlope
-      value: 0
+      value: 0.04666356
       objectReference: {fileID: 0}
     - target: {fileID: 2696588193593470309, guid: c229b5fac418f3042bdef059c9e9297b, type: 3}
       propertyPath: sideVelMult_ForwardVel.m_Curve.Array.data[2].inWeight
-      value: 0.33333334
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2696588193593470309, guid: c229b5fac418f3042bdef059c9e9297b, type: 3}
       propertyPath: sideVelMult_ForwardVel.m_Curve.Array.data[2].outSlope
-      value: 0.04666356
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2696588193593470309, guid: c229b5fac418f3042bdef059c9e9297b, type: 3}
       propertyPath: sideVelocityToForwardCurve.m_Curve.Array.data[0].time
@@ -3048,15 +3052,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2696588193593470309, guid: c229b5fac418f3042bdef059c9e9297b, type: 3}
       propertyPath: sideVelMult_ForwardVel.m_Curve.Array.data[0].outWeight
-      value: 0.61923087
+      value: 0.6166667
       objectReference: {fileID: 0}
     - target: {fileID: 2696588193593470309, guid: c229b5fac418f3042bdef059c9e9297b, type: 3}
       propertyPath: sideVelMult_ForwardVel.m_Curve.Array.data[1].outWeight
-      value: 0.33333334
+      value: 0.8160077
       objectReference: {fileID: 0}
     - target: {fileID: 2696588193593470309, guid: c229b5fac418f3042bdef059c9e9297b, type: 3}
       propertyPath: sideVelMult_ForwardVel.m_Curve.Array.data[2].outWeight
-      value: 0.8160077
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2696588193593470309, guid: c229b5fac418f3042bdef059c9e9297b, type: 3}
       propertyPath: sideVelocityToForwardCurve.m_Curve.Array.data[1].value
@@ -3107,12 +3111,16 @@ PrefabInstance:
       value: 0.33333334
       objectReference: {fileID: 0}
     - target: {fileID: 2696588193593470309, guid: c229b5fac418f3042bdef059c9e9297b, type: 3}
+      propertyPath: sideVelMult_ForwardVel.m_Curve.Array.data[0].tangentMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2696588193593470309, guid: c229b5fac418f3042bdef059c9e9297b, type: 3}
       propertyPath: sideVelMult_ForwardVel.m_Curve.Array.data[1].tangentMode
-      value: 136
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2696588193593470309, guid: c229b5fac418f3042bdef059c9e9297b, type: 3}
       propertyPath: sideVelMult_ForwardVel.m_Curve.Array.data[2].tangentMode
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2696588193593470309, guid: c229b5fac418f3042bdef059c9e9297b, type: 3}
       propertyPath: sideVelocityToForwardCurve.m_Curve.Array.data[1].inSlope
@@ -3123,8 +3131,12 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2696588193593470309, guid: c229b5fac418f3042bdef059c9e9297b, type: 3}
-      propertyPath: sideVelMult_ForwardVel.m_Curve.Array.data[2].weightedMode
+      propertyPath: sideVelMult_ForwardVel.m_Curve.Array.data[1].weightedMode
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2696588193593470309, guid: c229b5fac418f3042bdef059c9e9297b, type: 3}
+      propertyPath: sideVelMult_ForwardVel.m_Curve.Array.data[2].weightedMode
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2696588193593470309, guid: c229b5fac418f3042bdef059c9e9297b, type: 3}
       propertyPath: sideVelocityToForwardCurve.m_Curve.Array.data[0].outSlope

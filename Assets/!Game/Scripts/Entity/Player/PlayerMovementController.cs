@@ -52,8 +52,8 @@ public class PlayerMovementController : MonoBehaviour
 
     private void CalculateVelocity()
     {
-        ForwardVelocity();
-        ForwardVelocityDamp();
+        ForwardAcceleration();
+        ForwardDamp();
         SideVelocity();
         
         _calcForwardVelocity = Mathf.Lerp(
@@ -63,7 +63,7 @@ public class PlayerMovementController : MonoBehaviour
         );
     }
     
-    private void ForwardVelocity()
+    private void ForwardAcceleration()
     {
         if (!_moveAction.WasPerformedThisFrame()) return;
         _targetForwardVelocity += velocityStep;
@@ -71,15 +71,20 @@ public class PlayerMovementController : MonoBehaviour
     }
 
     private float _maxReachedVelocity;
-    private void ForwardVelocityDamp()
+    private void ForwardDamp()
     {
+        // begin of damp
         if (_moveAction.WasPerformedThisFrame())
         {
             _velocityDampTimer = 0f;
             _maxReachedVelocity = _targetForwardVelocity;
         }
-        _velocityDampTimer += Time.deltaTime;
+        
+        // progression
+        float delta = _moveAction.IsPressed() ? Time.deltaTime : Time.deltaTime * 2.5f;
+        _velocityDampTimer += delta;
 
+        // evaluation
         float curveTime = Mathf.InverseLerp(0f, stopTime, _velocityDampTimer);
         float curveValue = velocityDamp.Evaluate(curveTime);
         float newForwardVelocity = Mathf.Lerp(0f, _maxReachedVelocity, curveValue);
@@ -105,7 +110,7 @@ public class PlayerMovementController : MonoBehaviour
         // Forward velocity based damp
         _sideVelToForwardDamp = sideVelMult_ForwardVel.Evaluate(VelocityCoef(0f, maxForwardVelocity));
 
-        _calcSideVelocity = sideVel * sideForce * _sideVelToForwardDamp * _sideVelToTimeDamp;
+        _calcSideVelocity = sideVel * sideForce * _sideVelToForwardDamp;
     }
     
     private void Rotate()
