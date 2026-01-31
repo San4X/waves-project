@@ -12,6 +12,7 @@ public class DashAbility : MonoBehaviour
     [SerializeField] private Image timerImage;
     [SerializeField] private int amountToUnlock;
     [SerializeField] private Image iconFillImage;
+    
     private InputAction _abilityTriggerAction;
     private InputAction _chargeAction;
     private InputAction _moveAction;
@@ -22,6 +23,7 @@ public class DashAbility : MonoBehaviour
     private float _timer;
     private Tween _timeScaleTween;
     private int _unlockPointsCount;
+    private int _chargeStep = 1;
 
 
     private void Awake()
@@ -34,11 +36,8 @@ public class DashAbility : MonoBehaviour
         AbilityDisable();
         
         _abilityTriggerAction.performed += _ => ActivateAbility();
-        
+        FindAnyObjectByType<ExperienceManager>().OnLevelUpdate += LevelUp_Event;
     }
-    // charging by damaging if not charged yet
-    // can trigger if charged: charging energy by spamming within time
-    // after timer: addforce to player
 
     private void Update()
     {
@@ -64,17 +63,14 @@ public class DashAbility : MonoBehaviour
         if(_unlockPointsCount < amountToUnlock) return;
         
         _abilityActivated = true;
-        
         _moveAction.Disable();
         _chargeAction.Enable();
-        
-        
         ChangeTimeSpeed(true);
     }
 
     private void Dash()
     {
-        _playerMovement.Dash(_chargeCount*2);
+        _playerMovement.Dash(_chargeCount);
 
         _unlockPointsCount = 0;
         AbilityDisable();
@@ -88,7 +84,7 @@ public class DashAbility : MonoBehaviour
         if(Mathf.Approximately(chargeButton, _lastChargeButton) || chargeButton == 0) return; // charge button should be opposite from last
         _lastChargeButton = chargeButton;
 
-        _chargeCount++;
+        _chargeCount += _chargeStep;
     }
 
     private void AbilityDisable()
@@ -134,5 +130,11 @@ public class DashAbility : MonoBehaviour
     private void UpdateIconUI()
     {
         iconFillImage.fillAmount = Mathf.InverseLerp(0f, amountToUnlock, _unlockPointsCount);
+    }
+
+    private void LevelUp_Event(object sender, EventArgs args)
+    {
+        var manager = (ExperienceManager)sender;
+        _chargeStep = manager.AbilityChargeStep;
     }
 }

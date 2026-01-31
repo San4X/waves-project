@@ -6,7 +6,9 @@ using UnityEngine;
 public class EntityHealth : Health
 {
     [SerializeField] private int lootAmount;
+    [SerializeField] private int expAmount;
     private DashAbility _abilityManager;
+    private ExperienceManager _experienceManager;
 
 
     protected override void Awake()
@@ -14,6 +16,7 @@ public class EntityHealth : Health
         base.Awake();
         
         _abilityManager = FindAnyObjectByType<DashAbility>();
+        _experienceManager = FindAnyObjectByType<ExperienceManager>();
     }
 
     protected override void TakeDamage(int damageAmount)
@@ -36,6 +39,7 @@ public class EntityHealth : Health
     {
         base.Death();
         SpawnLoot();
+        _experienceManager.AddExperience(expAmount);
     }
 
     private void SpawnLoot()

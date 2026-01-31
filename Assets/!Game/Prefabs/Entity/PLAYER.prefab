@@ -980,7 +980,7 @@ MonoBehaviour:
   velocityStep: 4
   maxForwardVelocity: 20
   stopTime: 1
-  velocityDecreaseCurve:
+  velocityDamp:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
@@ -993,34 +993,86 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.15
+      time: 0.1
       value: 1
       inSlope: 0
       outSlope: 0
-      tangentMode: 136
+      tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
       time: 1
       value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 136
+      inSlope: -1.1111112
+      outSlope: -1.1111112
+      tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
-      outWeight: 0.33333334
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  velocityResponsivness: 100
-  sideForce: 1
-  sideForceDumpCurve:
+  forwardSmooth: 500
+  sideForce: 2
+  sideVelMult_ForwardVel:
     serializedVersion: 2
-    m_Curve: []
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0.20252691
+      outSlope: 0.20252691
+      tangentMode: 0
+      weightedMode: 2
+      inWeight: 0.33333334
+      outWeight: 0.6166667
+    - serializedVersion: 3
+      time: 0.8
+      value: 1
+      inSlope: -0
+      outSlope: 0.04666356
+      tangentMode: 1
+      weightedMode: 3
+      inWeight: 0.33333334
+      outWeight: 0.8160077
+    - serializedVersion: 3
+      time: 1
+      value: 0.7
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  sideVelMult_Time:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.5
+      inSlope: 0.5
+      outSlope: 0.5
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0.5
+      outSlope: 0.5
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  rotationSpeed: 500
 --- !u!54 &4630159431808067993
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1030,8 +1082,8 @@ Rigidbody:
   m_GameObject: {fileID: 4525539037742272812}
   serializedVersion: 5
   m_Mass: 1
-  m_LinearDamping: 3
-  m_AngularDamping: 0.05
+  m_LinearDamping: 1
+  m_AngularDamping: 1
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -1045,9 +1097,9 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 84
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!135 &843452015413306613
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1087,7 +1139,7 @@ MonoBehaviour:
   fadeDuration: 0.8
   shakeDuration: 0
   invincibleCd: 1
-  maxHealth: 3
+  currentMaxHealth: 5
   damagingObjectTag: Enemy
   healthImg: {fileID: 0}
   dumpedHealthImg: {fileID: 0}

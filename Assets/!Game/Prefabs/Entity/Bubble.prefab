@@ -131,9 +131,10 @@ MonoBehaviour:
   fadeDuration: 0.8
   shakeDuration: 0.15
   invincibleCd: 0.2
-  maxHealth: 0
+  currentMaxHealth: 0
   damagingObjectTag: Player
   lootAmount: 0
+  expAmount: 1
 --- !u!54 &3934422235046422328
 Rigidbody:
   m_ObjectHideFlags: 0

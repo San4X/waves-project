@@ -12,7 +12,16 @@ public class PlayerHealth : Health
     [SerializeField] private TextMeshProUGUI healthText;
     [SerializeField] private Color healEffectColor;
     private GameObject _lastHealObject;
+    private int _baseMaxHealth;
+    private int _healthBonus;
 
+
+    protected override void Awake()
+    {
+        base.Awake();
+        _baseMaxHealth = currentMaxHealth;
+        FindAnyObjectByType<ExperienceManager>().OnLevelUpdate += LevelUp_Event;
+    }
 
     private void Start()
     {
@@ -45,9 +54,9 @@ public class PlayerHealth : Health
 
     private void UpdateUI()
     {
-        healthText.text = CurrentHealth + "/" + maxHealth;
+        healthText.text = CurrentHealth + "/" + currentMaxHealth;
         
-        float newHealthPercent = Mathf.InverseLerp(0f, maxHealth, CurrentHealth);
+        float newHealthPercent = Mathf.InverseLerp(0f, currentMaxHealth, CurrentHealth);
         Vector3 newHealthImgScale = new Vector3(newHealthPercent, 1f, 1f);
         
         if(Mathf.Approximately(newHealthPercent, healthImg.localScale.x)) return;
@@ -64,5 +73,13 @@ public class PlayerHealth : Health
             dumpedHealthImg.localScale = newHealthImgScale;
             Tween.ScaleX(healthImg, newHealthPercent, 0.5f, Ease.InQuad);
         }
+    }
+
+    private void LevelUp_Event(object sender, EventArgs args)
+    {
+        var manager = (ExperienceManager)sender;
+        _healthBonus = manager.HealthBonus;
+        currentMaxHealth = _baseMaxHealth + _healthBonus;
+        Heal(1);
     }
 }

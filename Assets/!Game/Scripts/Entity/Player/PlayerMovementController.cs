@@ -27,6 +27,7 @@ public class PlayerMovementController : MonoBehaviour
     private Tween _rotationTween;
     private float _velocityDampTimer; // from 0 to stopTime, 0 when move action triggered. Used in velocityDecreaseCurve
     private bool _dashing;
+    private Vector3 _targetVelocity;
 
 
     private void Awake()
@@ -39,15 +40,14 @@ public class PlayerMovementController : MonoBehaviour
     private void Update()
     {
         CalculateVelocity();
-        Rotate();
     }
 
     private void FixedUpdate()
     {
-        Vector3 velocity = transform.InverseTransformDirection(_rb.linearVelocity);
-        velocity.z = _calcForwardVelocity;
-        velocity.x = _calcSideVelocity;
-        _rb.linearVelocity = transform.TransformDirection(velocity);
+        
+        _rb.linearVelocity = _targetVelocity;
+        Rotate();
+        // RotateDva();
     }
 
     private void CalculateVelocity()
@@ -61,11 +61,17 @@ public class PlayerMovementController : MonoBehaviour
             _targetForwardVelocity,
             forwardSmooth * Time.deltaTime
         );
+        
+        _targetVelocity.z = _calcForwardVelocity;
+        _targetVelocity.x = _calcSideVelocity;
+        _targetVelocity = transform.TransformDirection(_targetVelocity);
+        
+        if (_targetForwardVelocity < maxForwardVelocity) _dashing = false;
     }
     
     private void ForwardAcceleration()
     {
-        if (!_moveAction.WasPerformedThisFrame()) return;
+        if (!_moveAction.WasPerformedThisFrame() || _dashing) return;
         _targetForwardVelocity += velocityStep;
         if (_targetForwardVelocity > maxForwardVelocity) _targetForwardVelocity = maxForwardVelocity;
     }
@@ -74,7 +80,7 @@ public class PlayerMovementController : MonoBehaviour
     private void ForwardDamp()
     {
         // begin of damp
-        if (_moveAction.WasPerformedThisFrame())
+        if (_moveAction.WasPerformedThisFrame() && !_dashing)
         {
             _velocityDampTimer = 0f;
             _maxReachedVelocity = _targetForwardVelocity;
@@ -93,19 +99,19 @@ public class PlayerMovementController : MonoBehaviour
     }
     
     private float _sideVelToForwardDamp = 0;
-    private float _sideVelToTimeDamp = 0;
+    // private float _sideVelToTimeDamp = 0;
     private void SideVelocity()
     {
         float sideVel = _moveAction.ReadValue<float>(); // -1 / 0 / 1
         
         // Time based damp
-        if (_moveAction.WasPerformedThisFrame())
-        {
-            _sideVelocityDampTween = Tween.Custom(0f, 1f, 1f, f =>
-            {
-                _sideVelToTimeDamp = sideVelMult_Time.Evaluate(f);
-            });
-        }
+        // if (_moveAction.WasPerformedThisFrame())
+        // {
+        //     _sideVelocityDampTween = Tween.Custom(0f, 1f, 1f, f =>
+        //     {
+        //         _sideVelToTimeDamp = sideVelMult_Time.Evaluate(f);
+        //     });
+        // }
         
         // Forward velocity based damp
         _sideVelToForwardDamp = sideVelMult_ForwardVel.Evaluate(VelocityCoef(0f, maxForwardVelocity));
@@ -115,15 +121,17 @@ public class PlayerMovementController : MonoBehaviour
     
     private void Rotate()
     {
-        Vector3 vel = _rb.linearVelocity;
-        vel.y = 0;
-        
+        var vel = _rb.linearVelocity;
         if(vel.sqrMagnitude <= 0.01f) return; // bc of warning: look rotation vector is zero
-        
-        Quaternion targetRot = Quaternion.LookRotation(vel.normalized, Vector3.up);
-        
-        _rb.MoveRotation(Quaternion.Slerp(_rb.rotation, targetRot, Time.deltaTime * rotationSpeed));
+        Quaternion targetRot = Quaternion.LookRotation(vel, Vector3.up);
+        _rb.MoveRotation(targetRot);
+
         // this method in Update cuz .MoveRotation happens instantly and FixedUpdate frame rate affected by timeScale
+    }
+
+    private void RotateDva()
+    {
+        _rb.AddRelativeTorque(Vector3.up * 0.1f, ForceMode.Acceleration);
     }
     
     private float VelocityCoef(float minThreshold, float maxThreshold)
@@ -136,8 +144,16 @@ public class PlayerMovementController : MonoBehaviour
 
     public void Dash(float force)
     {
+        _dashing = true;
         _velocityDampTimer = 0f;
-        _calcForwardVelocity += force;
-        _maxReachedVelocity = _calcForwardVelocity;
+        _targetForwardVelocity += force;
+        _maxReachedVelocity = _targetForwardVelocity;
+    }
+    
+    private void OnDrawGizmos()
+    {
+        if(!_rb) return;
+        Gizmos.DrawRay(transform.position, _rb.linearVelocity);
+        Gizmos.color = Color.white;
     }
 }

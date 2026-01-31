@@ -13,7 +13,7 @@ public class Health : MonoBehaviour
     [SerializeField] private float fadeDuration;
     [SerializeField] protected float shakeDuration;
     [SerializeField] private float invincibleCd = 1f;
-    [SerializeField] protected int maxHealth;
+    [SerializeField] protected int currentMaxHealth;
     [SerializeField] protected string damagingObjectTag;
     private Material _effectMat;
     private float _timer;
@@ -28,7 +28,7 @@ public class Health : MonoBehaviour
         _effectMat = renderer.materials[^1];
         
         _timer = invincibleCd;
-        CurrentHealth = maxHealth;
+        CurrentHealth = currentMaxHealth;
     }
     
     private void Update()
@@ -65,7 +65,7 @@ public class Health : MonoBehaviour
             Death();
         }
 
-        if (CurrentHealth > maxHealth) CurrentHealth = maxHealth;
+        if (CurrentHealth > currentMaxHealth) CurrentHealth = currentMaxHealth;
     }
 
     protected virtual void Death()
