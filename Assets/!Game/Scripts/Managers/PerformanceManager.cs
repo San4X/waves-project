@@ -2,20 +2,20 @@ using System;
 using TMPro;
 using UnityEngine;
 
-public class PerformanceCounter : MonoBehaviour
+public class PerformanceManager : MonoBehaviour
 {
-    private TextMeshProUGUI _fpsText;
+    [SerializeField] private TextMeshProUGUI fpsText;
     [SerializeField] private float updateCd;
+    [SerializeField] private int targetFps;
     private float _updateTimer;
     private float _fpsAvg;
     private int _frameCounter;
-
-
+    
     private void Awake()
     {
-        _fpsText = GetComponent<TextMeshProUGUI>();
+        Application.targetFrameRate = targetFps;
     }
-
+    
     private void Update()
     {
         float fps = 1.0f / Time.unscaledDeltaTime;
@@ -29,7 +29,7 @@ public class PerformanceCounter : MonoBehaviour
         }
         _updateTimer = 0;
         
-        _fpsText.text = "FPS " + (int)_fpsAvg / _frameCounter;
+        fpsText.text = "FPS " + (int)_fpsAvg / _frameCounter;
         _fpsAvg = 0;
         _frameCounter = 0;
     }

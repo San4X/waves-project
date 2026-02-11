@@ -20,12 +20,9 @@ public class Health : MonoBehaviour
     protected int CurrentHealth;
 
 
-    protected virtual void Awake()
+    protected virtual void Start()
     {
-        var mats = renderer.materials.ToList();
-        mats.Add(effectMaterial);
-        renderer.materials = mats.ToArray();
-        _effectMat = renderer.materials[^1];
+        _effectMat = AddInstancedMaterialToHierarchy(transform, effectMaterial);
         
         _timer = invincibleCd;
         CurrentHealth = currentMaxHealth;
@@ -90,5 +87,23 @@ public class Health : MonoBehaviour
     {
         newColor.a = value;
         materialToChange.color = newColor;
+    }
+    
+    private static Material AddInstancedMaterialToHierarchy(
+        Transform root,
+        Material effectTemplate)
+    {
+        Material instance = new Material(effectTemplate);
+
+        var renderers = root.GetComponentsInChildren<Renderer>(true);
+
+        foreach (var r in renderers)
+        {
+            var mats = r.materials.ToList();
+            mats.Add(instance);
+            r.materials = mats.ToArray();
+        }
+
+        return instance;
     }
 }

@@ -11,10 +11,8 @@ public class EntityHealth : Health
     private ExperienceManager _experienceManager;
 
 
-    protected override void Awake()
+    protected virtual void Awake()
     {
-        base.Awake();
-        
         _abilityManager = FindAnyObjectByType<DashAbility>();
         _experienceManager = FindAnyObjectByType<ExperienceManager>();
     }

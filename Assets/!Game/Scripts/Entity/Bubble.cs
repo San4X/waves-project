@@ -11,8 +11,12 @@ public class Bubble : EntityHealth
     protected override void Awake()
     {
         base.Awake();
-        
         _playerHealth = FindAnyObjectByType<PlayerHealth>();
+    }
+
+    protected override void Start()
+    {
+        base.Start();
         AnimateSpawn();
     }
 

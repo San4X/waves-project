@@ -39,6 +39,7 @@ public class EelBehaviour : MonoBehaviour
         _rb = GetComponent<Rigidbody>();
         _navAgent.stoppingDistance = stopDistance;
         target = FindAnyObjectByType<PlayerHealth>().transform;
+        if(!target) {Debug.Log("NoPlayer");return;}
         
         var stalkState = new EelStalkState(target, _navAgent, maxSpeed, stalkSpeed, maxSpeedDistance, stalkSpeedDistance, stopDistance);
         var dashState = new EelDashState(target, this, dashTargetDelay, _rb, maxSpeed, dashSpeedCurve, dashDuration);

@@ -16,18 +16,12 @@ public class SegmentedBody : MonoBehaviour
     [SerializeField] private RigBuilder rigBuilder;
     private Transform _head;
     
-    // pick -z extreme point at mesh
-    // instantiate segment as child
-    
-    // set scale based on max size and curve
-    // set rig
 
-    private void Start()
+    private void Awake()
     {
         _head = transform.GetChild(0);
         
         InstantiateBody(segmentsAmount);
-        rigBuilder.Build();
     }
     
     private void InstantiateBody(int tailSegments)
@@ -37,15 +31,29 @@ public class SegmentedBody : MonoBehaviour
         
         for (int i = 1; i <= tailSegments; i++) // accounting head
         {
+            // lastSegment = Instantiate(
+            //     segmentPrefab, 
+            //     GetSmallestZPointFromMesh(lastSegment), 
+            //     Quaternion.identity,
+            //     lastSegment);
+
+            var parameters = new InstantiateParameters
+            {
+                worldSpace = false,
+                parent = lastSegment,
+            };
+            
             lastSegment = Instantiate(
                 segmentPrefab, 
                 GetSmallestZPointFromMesh(lastSegment), 
                 Quaternion.identity,
-                lastSegment);
+                parameters);
 
             lastSegment.localScale = GetSegmentScale(i);
             SetRigForSegment(lastSegment);
         }
+        
+        rigBuilder.Build();
     }
 
 
@@ -77,15 +85,16 @@ public class SegmentedBody : MonoBehaviour
         component.data = data;
     }
 
-    private Vector3 GetSmallestZPointFromMesh(Transform parentSegment)
+    private Vector3 GetSmallestZPointFromMesh(Transform mashTransform)
     {
-        var mesh = parentSegment.GetComponent<MeshFilter>().mesh;
+        var mesh = mashTransform.GetComponent<MeshFilter>().mesh;
         var verts = mesh.vertices;
         float best = verts[0].z;
 
         for (int i = 0; i < verts.Length; i++)
         {
-            float globalZ = parentSegment.TransformPoint(verts[i]).z;
+            //float globalZ = mashTransform.TransformPoint(verts[i]).z;
+            float globalZ = verts[i].z;
             if (globalZ < best) best = globalZ;
         }
         

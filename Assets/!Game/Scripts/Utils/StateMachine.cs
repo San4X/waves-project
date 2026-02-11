@@ -92,4 +92,9 @@ public class StateMachine
 
       return null;
    }
+
+   public string GetCurrentStateText()
+   {
+      return _currentState.ToString();
+   }
 }

@@ -16,15 +16,15 @@ public class PlayerHealth : Health
     private int _healthBonus;
 
 
-    protected override void Awake()
+    private void Awake()
     {
-        base.Awake();
         _baseMaxHealth = currentMaxHealth;
         FindAnyObjectByType<ExperienceManager>().OnLevelUpdate += LevelUp_Event;
     }
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         UpdateUI();
     }
 

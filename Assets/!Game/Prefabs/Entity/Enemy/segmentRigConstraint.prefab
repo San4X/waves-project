@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7256648843517165141}
   - component: {fileID: 3641214996038630991}
   m_Layer: 0
-  m_Name: rigComponent
+  m_Name: segmentRigConstraint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -48,6 +48,6 @@ MonoBehaviour:
   m_Data:
     m_ConstrainedObject: {fileID: 0}
     m_Source: {fileID: 0}
-    m_DampPosition: 0.5
+    m_DampPosition: 0
     m_DampRotation: 0.5
     m_MaintainAim: 1
