@@ -15,7 +15,7 @@ public class FirstEnemyBehavior : MonoBehaviour
     [SerializeField] private float attackDistance;
     [SerializeField] private float attackSpeed;
     [SerializeField] private float attackAcceleration;
-    [SerializeField] private float attackWarmupTime;
+    [SerializeField] private float overkillDistance;
 
     [Header("Tired State")] 
     [SerializeField] private float tiredSpeed;
@@ -44,7 +44,7 @@ public class FirstEnemyBehavior : MonoBehaviour
         if(!_target) {Debug.Log("NoPlayer");return;}
 
         var followState = new EnemyFollowState(_target, _navAgent, attackDistance, farAwayDistance, followSpeed);
-        var dashState = new EnemyAttackState(_target, _navAgent, attackSpeed, attackAcceleration, this);
+        var dashState = new EnemyAttackState(_target, _navAgent, attackSpeed, attackAcceleration, overkillDistance);
         var tiredState = new EnemyTiredFollowState(_target, _navAgent, tiredSpeed, tiredRotationSpeed,
             tiredAcceleration, tiredTime);
         

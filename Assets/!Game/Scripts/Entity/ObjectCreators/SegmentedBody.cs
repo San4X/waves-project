@@ -8,7 +8,7 @@ using UnityEngine.Animations.Rigging;
 public class SegmentedBody : MonoBehaviour
 {
     [SerializeField] private int segmentsAmount;
-    [SerializeField] private float biggestSegmentScale;
+    [SerializeField] private float scaleMultiplier;
     [SerializeField] private AnimationCurve segmentsScaleDistribution;
     [SerializeField] private Transform segmentPrefab;
     [SerializeField] private Transform rig;
@@ -27,16 +27,9 @@ public class SegmentedBody : MonoBehaviour
     private void InstantiateBody(int tailSegments)
     {
         var lastSegment = _head;
-        _head.localScale = GetSegmentScale(0);
         
-        for (int i = 1; i <= tailSegments; i++) // accounting head
+        for (int i = 0; i < tailSegments; i++)
         {
-            // lastSegment = Instantiate(
-            //     segmentPrefab, 
-            //     GetSmallestZPointFromMesh(lastSegment), 
-            //     Quaternion.identity,
-            //     lastSegment);
-
             var parameters = new InstantiateParameters
             {
                 worldSpace = false,
@@ -60,9 +53,9 @@ public class SegmentedBody : MonoBehaviour
     private float _lastScale = 1;
     private Vector3 GetSegmentScale(int segmentIndex)
     {
-        float value = Mathf.InverseLerp(0, segmentsAmount, segmentIndex);
+        float value = Mathf.InverseLerp(0, segmentsAmount-1, segmentIndex);
         float scale = segmentsScaleDistribution.Evaluate(value);
-        scale *= biggestSegmentScale;
+        scale *= scaleMultiplier;
         
         float actualScale = scale / _lastScale;
         _lastScale = scale;

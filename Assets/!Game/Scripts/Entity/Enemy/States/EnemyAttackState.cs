@@ -10,16 +10,16 @@ public class EnemyAttackState : IState
     private NavMeshAgent _navAgent;
     private float _speed;
     private float _acceleration, _baseAcceleration;
-    private FirstEnemyBehavior _manager;
+    private float _overkillDistance;
 
 
-    public EnemyAttackState(Transform target, NavMeshAgent navAgent, float attackSpeed, float attackAcceleration, FirstEnemyBehavior manager)
+    public EnemyAttackState(Transform target, NavMeshAgent navAgent, float attackSpeed, float attackAcceleration, float overkillDistance)
     {
         _target = target;
         _navAgent = navAgent;
         _speed = attackSpeed;
         _acceleration = attackAcceleration;
-        _manager = manager;
+        _overkillDistance = overkillDistance;
     }
 
     private Vector3 CalculateDestination()
@@ -27,15 +27,16 @@ public class EnemyAttackState : IState
         var thisPosition = _navAgent.transform.position;
         var targetPosition = _target.position;
 
-        var dir = targetPosition - thisPosition;
-        dir *= 2f;
+        var dir = (targetPosition - thisPosition).normalized;
+        float distance = Vector3.Distance(thisPosition, targetPosition) + _overkillDistance;
+        dir *= distance;
 
         return dir + thisPosition;
     }
 
     private void Dash(Vector3 destination)
     {
-        _navAgent.enabled = true;
+        //_navAgent.enabled = true;
         _navAgent.speed = _speed;
         _navAgent.acceleration = _acceleration;
         _navAgent.SetDestination(destination);
@@ -61,6 +62,6 @@ public class EnemyAttackState : IState
     
     public bool StateCompleted()
     {
-        return _navAgent.remainingDistance <= 1f;
+        return _navAgent.desiredVelocity.magnitude <= 0f;
     }
 }
