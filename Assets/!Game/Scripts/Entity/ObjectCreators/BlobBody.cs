@@ -14,12 +14,13 @@ public class BlobBody : MonoBehaviour
     [SerializeField] private float spawnVectorLength;
     [SerializeField] private int bodyAmount;
     [SerializeField] private float segmentSpawnAnimTime;
-    
-    [Header("Weapon")]
-    [SerializeField] private Transform thorn;
+
+    [Header("Weapon")] 
+    [SerializeField] private int weaponHoldersAmount;
     [SerializeField] private int thornsAmountOnEach;
     [SerializeField] private float attackAngle;
     [SerializeField] private float thornHolderFindingRange = 0.5f; // if starting object is sphere it equals to radius
+    [SerializeField] private Transform thorn;
 
     private Transform _centralChild;
 
@@ -101,26 +102,26 @@ public class BlobBody : MonoBehaviour
     private readonly List<Transform> _weaponHolders = new();
     private void FindWeaponHolders()
     {
-        int sides = 4;
-        float angleStep = 360f / sides;
+        float angleStep = 360f / weaponHoldersAmount;
         
-        for (int i = 0; i < sides; i++)
+        for (int i = 0; i < weaponHoldersAmount; i++)
         {
             // знаходить точку на краю колайдера зі сторони кута
             float angle = i * angleStep;
-            Vector3 sidePosition = Quaternion.Euler(0f, angle, 0f) * (Vector3.forward * thornHolderFindingRange);
-            sidePosition = _centralChild.TransformPoint(sidePosition);
+            Vector3 desiredPosition = Quaternion.Euler(0f, angle, 0f) * (Vector3.forward * thornHolderFindingRange);
+            desiredPosition = _centralChild.TransformPoint(desiredPosition);
             
             // знаходить найближчий об'єкт до точки із заспавнених 
             Transform closestSegment = _spawnedSegments[0];
             foreach (var t in _spawnedSegments)
             {
-                if (Vector3.Distance(sidePosition, t.position) < Vector3.Distance(sidePosition, closestSegment.position))
+                if (Vector3.Distance(desiredPosition, t.position) < Vector3.Distance(desiredPosition, closestSegment.position))
                 {
                     closestSegment = t;
                 }
             }
-            _weaponHolders.Add(closestSegment);
+            
+            if(!_weaponHolders.Contains(closestSegment)) _weaponHolders.Add(closestSegment);
         }
     }
 

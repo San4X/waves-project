@@ -52,10 +52,11 @@ MonoBehaviour:
   spawnVectorLength: 10
   bodyAmount: 10
   segmentSpawnAnimTime: 0
-  thorn: {fileID: 1463270258385240420, guid: 3f1999f30f5a612418b16c22d9dba61f, type: 3}
+  weaponHoldersAmount: 4
   thornsAmountOnEach: 3
   attackAngle: 80
   thornHolderFindingRange: 0.5
+  thorn: {fileID: 6929283690499709045, guid: 1492607d14d679a42b59e1504e724ad4, type: 3}
 --- !u!1 &4385878175578376341
 GameObject:
   m_ObjectHideFlags: 0
