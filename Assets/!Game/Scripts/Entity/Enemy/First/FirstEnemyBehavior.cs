@@ -43,7 +43,7 @@ public class FirstEnemyBehavior : MonoBehaviour
         _target = FindAnyObjectByType<PlayerHealth>().transform;
         if(!_target) {Debug.Log("NoPlayer");return;}
 
-        var followState = new EnemyFollowState(_target, _navAgent, attackDistance, farAwayDistance, followSpeed);
+        var followState = new EnemyFollowState(_target, _navAgent, attackDistance, farAwayDistance, followSpeed, followSpeed*5f);
         var dashState = new EnemyAttackState(_target, _navAgent, attackSpeed, attackAcceleration, overkillDistance);
         var tiredState = new EnemyTiredFollowState(_target, _navAgent, tiredSpeed, tiredRotationSpeed,
             tiredAcceleration, tiredTime);

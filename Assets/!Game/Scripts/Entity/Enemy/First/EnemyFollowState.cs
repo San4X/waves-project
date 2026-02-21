@@ -10,16 +10,18 @@ public class EnemyFollowState : IState
     private float _attackDistance, _farAwayDistance;
     private float _followSpeed;
     private float _navCooldown = 0.2f;
+    private float _maxSpeed;
 
 
     public EnemyFollowState(Transform target, NavMeshAgent navAgent, float attackDistance, float farAwayDistance,
-        float followSpeed)
+        float followSpeed, float maxSpeed)
     {
         _target = target;
         _navAgent = navAgent;
         _attackDistance = attackDistance;
         _farAwayDistance = farAwayDistance;
         _followSpeed = followSpeed;
+        _maxSpeed = maxSpeed;
     }
 
     private float _lastUpdTime;
@@ -35,11 +37,11 @@ public class EnemyFollowState : IState
         float distanceToTarget = _navAgent.remainingDistance;
         float percent = Mathf.InverseLerp(_farAwayDistance / 2f, _farAwayDistance, distanceToTarget);
         float x = percent * percent * percent * percent;
-        float newSpeed = Mathf.Lerp(_followSpeed, _followSpeed * 5f, x);
+        float newSpeed = Mathf.Lerp(_followSpeed, _maxSpeed, x);
         _navAgent.speed = newSpeed;
     }
     
-    public void Tick()
+    public virtual void Tick()
     {
         Follow();
         AdjustSpeed();

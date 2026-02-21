@@ -68,22 +68,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SegmentedBody
   segmentsAmount: 15
-  scaleMultiplier: 1
+  scaleMultiplier: 0.7
   segmentsScaleDistribution:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0.60609055
-      inSlope: 0.7347736
-      outSlope: 0.7347736
+      value: 0.9
+      inSlope: 0.5000001
+      outSlope: 0.5000001
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.4
-      value: 0.9
+      time: 0.2
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 136

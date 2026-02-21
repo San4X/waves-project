@@ -8,6 +8,8 @@ using Random = UnityEngine.Random;
 
 public class BlobBody : MonoBehaviour
 {
+    public event EventHandler OnWeaponCreated;
+    
     [SerializeField] private Transform segment;
     [SerializeField] private float minScale, maxScale;
     [SerializeField] private float spawnVectorAngle;
@@ -50,6 +52,7 @@ public class BlobBody : MonoBehaviour
     {
         float angle = Random.Range(-spawnVectorAngle / 2, spawnVectorAngle / 2);
         Vector3 rayOrigin = Quaternion.Euler(0, angle, 0) * Vector3.forward * spawnVectorLength;
+        rayOrigin = transform.TransformPoint(rayOrigin);
         Vector3 rayDirection = transform.position - rayOrigin;
         var newSegmentPosition = PerformRaycast(rayOrigin, rayDirection);
         
@@ -78,13 +81,20 @@ public class BlobBody : MonoBehaviour
     private float _lastSegmentScale = 1;
     private Vector3 PerformRaycast(Vector3 position, Vector3 direction)
     {
-        if (Physics.Raycast(position, direction, out RaycastHit hit, direction.magnitude))
+        RaycastHit[] hits = new RaycastHit[10];
+        Physics.RaycastNonAlloc(position, direction, hits, spawnVectorLength);
+
+        Array.Sort(hits, (a, b) => a.distance.CompareTo(b.distance));
+        
+        foreach (var hit in hits)
         {
-            _lastSegmentScale = hit.transform.localScale.x;
+            if(!hit.transform) continue;
+            if(!hit.transform.IsChildOf(transform)) continue;
             
-            var hitPosition = hit.point;
-            return hitPosition;
+            _lastSegmentScale = hit.transform.localScale.x;
+            return hit.point;
         }
+        
         return Vector3.zero;
     }
 
@@ -125,7 +135,7 @@ public class BlobBody : MonoBehaviour
         }
     }
 
-    private List<Transform> _thorns = new();
+    public readonly List<Transform> _thorns = new();
     private void SpawnThorns()
     {
         FindWeaponHolders();
@@ -154,5 +164,7 @@ public class BlobBody : MonoBehaviour
                 _thorns.Add(spawned);
             }
         }
+        
+        OnWeaponCreated?.Invoke(this, EventArgs.Empty);
     }
 }
