@@ -13,6 +13,8 @@ public class GameStateManager : MonoBehaviour
 
     private void Awake()
     {
+        if(!enabled) return;
+
         _stateMachine = new StateMachine();
         _objectSpawner = FindAnyObjectByType<ObjectSpawner>();
         _player = FindAnyObjectByType<PlayerHealth>().transform;
